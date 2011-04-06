@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ePharmacyModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ePharmacyModelStoreContainer">
+          <EntitySet Name="tbAuditExchangeInbound" EntityType="ePharmacyModel.Store.tbAuditExchangeInbound" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="tbAuditExchangeInbound">
+          <Key>
+            <PropertyRef Name="rid" />
+          </Key>
+          <Property Name="rid" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="beginTime" Type="datetime" />
+          <Property Name="endTime" Type="datetime" />
+          <Property Name="requestMessageId" Type="varchar" MaxLength="100" />
+          <Property Name="responseMessageId" Type="varchar" MaxLength="100" />
+          <Property Name="responseCorrId" Type="varchar" MaxLength="100" />
+          <Property Name="requestSource" Type="varchar" MaxLength="50" />
+          <Property Name="requestDestination" Type="varchar" MaxLength="50" />
+          <Property Name="responseSource" Type="varchar" MaxLength="50" />
+          <Property Name="responseDestination" Type="varchar" MaxLength="50" />
+          <Property Name="sourceUrl" Type="varchar" MaxLength="250" />
+          <Property Name="clientIpAddress" Type="varchar" MaxLength="45" />
+          <Property Name="serverMachineName" Type="varchar" MaxLength="45" />
+          <Property Name="authenticated" Type="bit" />
+          <Property Name="authCertSerialNumber" Type="varchar" MaxLength="100" />
+          <Property Name="authCertSubject" Type="varchar" MaxLength="250" />
+          <Property Name="soapFaultType" Type="varchar" MaxLength="50" />
+          <Property Name="faultMessage" Type="varchar" MaxLength="500" />
+          <Property Name="auditCreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="auditCreatedBy" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="auditUpdatedOn" Type="datetime" />
+          <Property Name="auditUpdatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="requestCorrID" Type="varchar" MaxLength="150" />
+          <Property Name="clientDiagAdapterVersion" Type="varchar" MaxLength="20" />
+          <Property Name="clientDiagDBVersion" Type="varchar" MaxLength="20" />
+          <Property Name="clientDiagOSVersion" Type="varchar" MaxLength="50" />
+          <Property Name="clientDiagDotNetVersion" Type="varchar" MaxLength="20" />
+          <Property Name="clientDiagProcessName" Type="varchar" MaxLength="50" />
+          <Property Name="clientDiagMsgsWaitingToBePosted" Type="int" />
+          <Property Name="clientDiagMsgsWaitingRetry" Type="int" />
+          <Property Name="clientDiagMsgsFailed" Type="int" />
+          <Property Name="clientDiagMsgsToBeDequeued" Type="int" />
+          <Property Name="clientDiagOutboundAuditCount" Type="int" />
+          <Property Name="clientDiagInboundAuditCount" Type="int" />
+          <Property Name="trainingAppTransId" Type="uniqueidentifier" />
+          <Property Name="trainingAppTransStepRef" Type="int" />
+          <Property Name="trainingOrganisation" Type="varchar" MaxLength="10" />
+          <Property Name="trainingOrganisationType" Type="varchar" MaxLength="20" />
+          <Property Name="trainingMsgType" Type="varchar" MaxLength="50" />
+          <Property Name="trainingMsgVersion" Type="varchar" MaxLength="50" />
+          <Property Name="trainingMsgIdentifiedBy" Type="varchar" MaxLength="100" />
+          <Property Name="requestMessageIdStrong" Type="uniqueidentifier" />
+          <Property Name="diagReference" Type="uniqueidentifier" />
+          <Property Name="diagNumber" Type="int" />
+          <Property Name="diagType" Type="varchar" MaxLength="50" />
+          <Property Name="diagMessage" Type="varchar" MaxLength="512" />
+          <Property Name="diagDetail" Type="ntext" />
+          <Property Name="diagRequestXml" Type="ntext" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ePharmacyModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ePharmacyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbAuditExchangeInbound" EntityType="ePharmacyModel.tbAuditExchangeInbound" />
+        </EntityContainer>
+        <EntityType Name="tbAuditExchangeInbound">
+          <Key>
+            <PropertyRef Name="rid" />
+          </Key>
+          <Property Name="rid" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="beginTime" Type="DateTime" />
+          <Property Name="endTime" Type="DateTime" />
+          <Property Name="requestMessageId" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="responseMessageId" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="responseCorrId" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="requestSource" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="requestDestination" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="responseSource" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="responseDestination" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="sourceUrl" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="clientIpAddress" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="serverMachineName" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="authenticated" Type="Boolean" />
+          <Property Name="authCertSerialNumber" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="authCertSubject" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="soapFaultType" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="faultMessage" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="auditCreatedOn" Type="DateTime" Nullable="false" />
+          <Property Name="auditCreatedBy" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="auditUpdatedOn" Type="DateTime" />
+          <Property Name="auditUpdatedBy" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="requestCorrID" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="clientDiagAdapterVersion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="clientDiagDBVersion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="clientDiagOSVersion" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="clientDiagDotNetVersion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="clientDiagProcessName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="clientDiagMsgsWaitingToBePosted" Type="Int32" />
+          <Property Name="clientDiagMsgsWaitingRetry" Type="Int32" />
+          <Property Name="clientDiagMsgsFailed" Type="Int32" />
+          <Property Name="clientDiagMsgsToBeDequeued" Type="Int32" />
+          <Property Name="clientDiagOutboundAuditCount" Type="Int32" />
+          <Property Name="clientDiagInboundAuditCount" Type="Int32" />
+          <Property Name="trainingAppTransId" Type="Guid" />
+          <Property Name="trainingAppTransStepRef" Type="Int32" />
+          <Property Name="trainingOrganisation" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="trainingOrganisationType" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="trainingMsgType" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="trainingMsgVersion" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="trainingMsgIdentifiedBy" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="requestMessageIdStrong" Type="Guid" />
+          <Property Name="diagReference" Type="Guid" />
+          <Property Name="diagNumber" Type="Int32" />
+          <Property Name="diagType" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="diagMessage" Type="String" MaxLength="512" Unicode="false" FixedLength="false" />
+          <Property Name="diagDetail" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="diagRequestXml" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ePharmacyModelStoreContainer" CdmEntityContainer="ePharmacyEntities">
+          <EntitySetMapping Name="tbAuditExchangeInbound"><EntityTypeMapping TypeName="ePharmacyModel.tbAuditExchangeInbound"><MappingFragment StoreEntitySet="tbAuditExchangeInbound">
+            <ScalarProperty Name="rid" ColumnName="rid" />
+            <ScalarProperty Name="beginTime" ColumnName="beginTime" />
+            <ScalarProperty Name="endTime" ColumnName="endTime" />
+            <ScalarProperty Name="requestMessageId" ColumnName="requestMessageId" />
+            <ScalarProperty Name="responseMessageId" ColumnName="responseMessageId" />
+            <ScalarProperty Name="responseCorrId" ColumnName="responseCorrId" />
+            <ScalarProperty Name="requestSource" ColumnName="requestSource" />
+            <ScalarProperty Name="requestDestination" ColumnName="requestDestination" />
+            <ScalarProperty Name="responseSource" ColumnName="responseSource" />
+            <ScalarProperty Name="responseDestination" ColumnName="responseDestination" />
+            <ScalarProperty Name="sourceUrl" ColumnName="sourceUrl" />
+            <ScalarProperty Name="clientIpAddress" ColumnName="clientIpAddress" />
+            <ScalarProperty Name="serverMachineName" ColumnName="serverMachineName" />
+            <ScalarProperty Name="authenticated" ColumnName="authenticated" />
+            <ScalarProperty Name="authCertSerialNumber" ColumnName="authCertSerialNumber" />
+            <ScalarProperty Name="authCertSubject" ColumnName="authCertSubject" />
+            <ScalarProperty Name="soapFaultType" ColumnName="soapFaultType" />
+            <ScalarProperty Name="faultMessage" ColumnName="faultMessage" />
+            <ScalarProperty Name="auditCreatedOn" ColumnName="auditCreatedOn" />
+            <ScalarProperty Name="auditCreatedBy" ColumnName="auditCreatedBy" />
+            <ScalarProperty Name="auditUpdatedOn" ColumnName="auditUpdatedOn" />
+            <ScalarProperty Name="auditUpdatedBy" ColumnName="auditUpdatedBy" />
+            <ScalarProperty Name="requestCorrID" ColumnName="requestCorrID" />
+            <ScalarProperty Name="clientDiagAdapterVersion" ColumnName="clientDiagAdapterVersion" />
+            <ScalarProperty Name="clientDiagDBVersion" ColumnName="clientDiagDBVersion" />
+            <ScalarProperty Name="clientDiagOSVersion" ColumnName="clientDiagOSVersion" />
+            <ScalarProperty Name="clientDiagDotNetVersion" ColumnName="clientDiagDotNetVersion" />
+            <ScalarProperty Name="clientDiagProcessName" ColumnName="clientDiagProcessName" />
+            <ScalarProperty Name="clientDiagMsgsWaitingToBePosted" ColumnName="clientDiagMsgsWaitingToBePosted" />
+            <ScalarProperty Name="clientDiagMsgsWaitingRetry" ColumnName="clientDiagMsgsWaitingRetry" />
+            <ScalarProperty Name="clientDiagMsgsFailed" ColumnName="clientDiagMsgsFailed" />
+            <ScalarProperty Name="clientDiagMsgsToBeDequeued" ColumnName="clientDiagMsgsToBeDequeued" />
+            <ScalarProperty Name="clientDiagOutboundAuditCount" ColumnName="clientDiagOutboundAuditCount" />
+            <ScalarProperty Name="clientDiagInboundAuditCount" ColumnName="clientDiagInboundAuditCount" />
+            <ScalarProperty Name="trainingAppTransId" ColumnName="trainingAppTransId" />
+            <ScalarProperty Name="trainingAppTransStepRef" ColumnName="trainingAppTransStepRef" />
+            <ScalarProperty Name="trainingOrganisation" ColumnName="trainingOrganisation" />
+            <ScalarProperty Name="trainingOrganisationType" ColumnName="trainingOrganisationType" />
+            <ScalarProperty Name="trainingMsgType" ColumnName="trainingMsgType" />
+            <ScalarProperty Name="trainingMsgVersion" ColumnName="trainingMsgVersion" />
+            <ScalarProperty Name="trainingMsgIdentifiedBy" ColumnName="trainingMsgIdentifiedBy" />
+            <ScalarProperty Name="requestMessageIdStrong" ColumnName="requestMessageIdStrong" />
+            <ScalarProperty Name="diagReference" ColumnName="diagReference" />
+            <ScalarProperty Name="diagNumber" ColumnName="diagNumber" />
+            <ScalarProperty Name="diagType" ColumnName="diagType" />
+            <ScalarProperty Name="diagMessage" ColumnName="diagMessage" />
+            <ScalarProperty Name="diagDetail" ColumnName="diagDetail" />
+            <ScalarProperty Name="diagRequestXml" ColumnName="diagRequestXml" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="ePharmacyModel" ZoomLevel="67">
+        <EntityTypeShape EntityType="ePharmacyModel.tbAuditExchangeInbound" Width="1.5" PointX="0.75" PointY="0.75" Height="8.8235888671875" IsExpanded="true" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

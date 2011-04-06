@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{10ACD07A-4262-4D1E-9E31-471306EB8245}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PRSErrorMonitor</RootNamespace>
+    <AssemblyName>PRSErrorMonitor</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CheckPrsErrorActivty.cs" />
+    <Compile Include="ISMTPWrapper.cs" />
+    <Compile Include="NotifyPartiesOfPrsIssues.cs" />
+    <Compile Include="RecordPRSErrorActivity.cs" />
+    <Compile Include="ePharmacyEntities.cs">
+      <DependentUpon>ePharmacyModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ePharmacyEntitiesMock.cs">
+      <DependentUpon>ePharmacyModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ePharmacyEntitiesMock.ObjectSet.cs">
+      <DependentUpon>ePharmacyModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ePharmacyModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ePharmacyModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ePharmacyModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ePharmacyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ePharmacyModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ePharmacyModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="IePharmacyEntities.cs">
+      <DependentUpon>ePharmacyModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IReportingEntities.cs">
+      <DependentUpon>ReportingModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportingEntities.cs">
+      <DependentUpon>ReportingModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReportingEntitiesMock.cs">
+      <DependentUpon>ReportingModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReportingEntitiesMock.ObjectSet.cs">
+      <DependentUpon>ReportingModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReportingModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportingModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReportingModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReportingModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportingModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\RetrieveLatestRowFromPrsErrorMonitorTable.cs" />
+    <Compile Include="Repository\ReturnErrorCount.cs" />
+    <Compile Include="Repository\UpdatePRSErrorMonitorTable.cs" />
+    <Compile Include="SMTPWrapper.cs" />
+    <Compile Include="tbAuditExchangeInbound.cs">
+      <DependentUpon>ePharmacyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbPRSErrorMonitor.cs">
+      <DependentUpon>ReportingModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="ePharmacyModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ePharmacyModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ePharmacyModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ePharmacyModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="ePharmacyModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ePharmacyModel.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="ReportingModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ReportingModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ReportingModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ReportingModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="ReportingModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ReportingModel.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

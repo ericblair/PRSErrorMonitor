@@ -14,14 +14,15 @@ namespace PRSErrorMonitor
         /// <returns></returns>
         public int ReturnErrorCountInPreviousMinute(DateTime timeToCheck, int? errorCode)
         {
-            DateTime _timeToCheck = timeToCheck;
-            int secondsToDeduct = _timeToCheck.Second;
-            _timeToCheck = _timeToCheck.AddSeconds(-secondsToDeduct);
+            int secondsToDeduct = timeToCheck.Second;
+            DateTime _timeToCheckLower = timeToCheck.AddSeconds(-secondsToDeduct);
+            DateTime _timeToCheckUpper = _timeToCheckLower.AddSeconds(59);
+
 
             var temp = (from AEI in _ePharmacyEntityContext.tbAuditExchangeInbound
                               where AEI.diagNumber == errorCode
-                              && AEI.auditCreatedOn >= _timeToCheck
-                              && AEI.auditCreatedOn <= _timeToCheck.AddSeconds(59)
+                              && AEI.auditCreatedOn >= _timeToCheckLower
+                              && AEI.auditCreatedOn <= _timeToCheckUpper
                               select AEI);
 
             int errorCount = temp.Count();

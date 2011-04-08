@@ -35,7 +35,7 @@ namespace PRSErrorMonitor
     //    }
     //}
 
-    // Commented out all of the above as it was conflicting with the classes alreay created for the ePharmacyModel
+    // Commented out above as it is already implemented in the ePharmacyModel
 }
 
 

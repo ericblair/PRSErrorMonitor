@@ -7,34 +7,42 @@ using System.Configuration;
 
 namespace PRSErrorMonitor
 {
-    public class NotifyPartiesOfPrsIssues
+    public class NotifyPartiesOfPrsIssues : PRSErrorMonitor.INotifyPartiesOfPrsIssues
     {
-        ISMTPWrapper _smtpClient;
+        SmtpClient _smtpClient;
+        IConfigFileHelper _configFileHelper;
  
         public NotifyPartiesOfPrsIssues()
+        {
+            _smtpClient = new SmtpClient();
+            _configFileHelper = new ConfigFileHelper();
+        }
 
         public void SendEmailToHelpdesk(bool prsUnavailableErrorLimitReached, bool prsTimeoutErrorLimitReached, bool prsTotalErrorLimitReached)
         {
             MailMessage email = ComposeEmail(prsUnavailableErrorLimitReached, prsTimeoutErrorLimitReached, prsTotalErrorLimitReached);
+            _smtpClient.Send(email);
+            // Set flag to prevent any more emails being sent until flag is reset
+            _configFileHelper.EmailSentFlag = 1;
         }
 
         private MailMessage ComposeEmail(bool prsUnavailableErrorLimitReached, bool prsTimeoutErrorLimitReached, bool prsTotalErrorLimitReached)
         {
             MailMessage email = new MailMessage();
-            MailAddress from = new MailAddress(ConfigurationManager.AppSettings["EmailFromAddress"]);
+            MailAddress from = new MailAddress(_configFileHelper.EmailFromAddress);
             email.From = from;
-            MailAddress to = new MailAddress(ConfigurationManager.AppSettings["EmailToAddress"]);
+            MailAddress to = new MailAddress(_configFileHelper.EmailToAddress);
             email.To.Add(to);
-            MailAddress cc = new MailAddress(ConfigurationManager.AppSettings["EmailCCAddresses"]);
+            MailAddress cc = new MailAddress(_configFileHelper.EmailCCAddresses);
             email.CC.Add(cc); // may have to review this......
-            MailAddress replyTo = new MailAddress(ConfigurationManager.AppSettings["EmailReplyToAddress"]);
+            MailAddress replyTo = new MailAddress(_configFileHelper.EmailReplyToAddress);
             email.ReplyTo = replyTo;    // Consider using replyToList....
-            email.Subject = ConfigurationManager.AppSettings["EmailSubject"];
+            email.Subject = _configFileHelper.EmailSubject;
 
             if ((prsUnavailableErrorLimitReached == false) && (prsTotalErrorLimitReached == false))
             {
                 // Total limit has been reached
-                email.Body = ConfigurationManager.AppSettings["TotalErrorLimitExceededBodyText"];
+                email.Body = _configFileHelper.TotalErrorLimitExceededBodyText;
                 return email;
             }
 
@@ -42,11 +50,11 @@ namespace PRSErrorMonitor
 
             if (prsUnavailableErrorLimitReached == true)
             {
-                _bodyText += ConfigurationManager.AppSettings["UnavailableErrorLimitExceededBodyText"];
+                _bodyText += _configFileHelper.UnavailableErrorLimitExceededBodyText;
             }
             if (prsTotalErrorLimitReached == true)
             {
-                _bodyText += ConfigurationManager.AppSettings["TimeoutErrorLimitExceededBodyText"];
+                _bodyText += _configFileHelper.TimeoutErrorLimitExceededBodyText;
             }
 
             email.Body = _bodyText;

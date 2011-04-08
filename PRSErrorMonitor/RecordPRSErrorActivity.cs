@@ -5,13 +5,21 @@ using System.Text;
 
 namespace PRSErrorMonitor
 {
-    static class RecordPRSErrorActivity
+    class RecordPRSErrorActivity
     {
+        private IRepository _repository;
+        
+        // Standard usage and unit testing constructor
+        public RecordPRSErrorActivity(IRepository repository)
+        {
+            _repository = repository;
+        }
+
         /// <summary>
         /// This method should be called from a scheduled task once a minute and will check the error counts for the previous minute.
         /// Upon completion, this method should add a new row to tbPRSErrorMonitor with the number of errors to have occured in the previous minute.
         /// </summary>
-        public static void RecordPRSErrorCounts(Repository repository)
+        public void RecordPRSErrorCounts()
         {
             int _numberOfPRSUnavailableErrors = 0;
             int _numberOfPRSTimeoutErrors = 0;
@@ -24,11 +32,11 @@ namespace PRSErrorMonitor
             // try / catch
 
             // Find out how many PRS errors occured in the previous minute
-            _numberOfPRSUnavailableErrors = repository.ReturnErrorCountInPreviousMinute(_previousMinute, _prsUnavailableErrorCode);
-            _numberOfPRSTimeoutErrors = repository.ReturnErrorCountInPreviousMinute(_previousMinute, _prsTimeoutErrorCode);
+            _numberOfPRSUnavailableErrors = _repository.ReturnErrorCountInPreviousMinute(_previousMinute, _prsUnavailableErrorCode);
+            _numberOfPRSTimeoutErrors = _repository.ReturnErrorCountInPreviousMinute(_previousMinute, _prsTimeoutErrorCode);
 
             // Save details of PRS errors to tbPRSErrorMonitor
-            repository.UpdatePRSErrorMonitorTable(_previousMinute, _prsUnavailableErrorCode, _prsTimeoutErrorCode);
+            _repository.UpdatePRSErrorMonitorTable(_previousMinute, _numberOfPRSUnavailableErrors, _numberOfPRSTimeoutErrors);
         }
     }
 }

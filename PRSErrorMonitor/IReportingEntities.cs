@@ -22,6 +22,7 @@ namespace PRSErrorMonitor
     public interface IReportingEntities
     {
         IObjectSet<tbPRSErrorMonitor> tbPRSErrorMonitor { get; }
+
         int SaveChanges(); 
     }
 }

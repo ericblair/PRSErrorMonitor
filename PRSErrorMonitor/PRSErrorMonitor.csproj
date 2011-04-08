@@ -48,8 +48,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CheckPrsErrorActivty.cs" />
-    <Compile Include="ISMTPWrapper.cs" />
+    <Compile Include="CheckToolStatus.cs" />
+    <Compile Include="CheckPrsErrorLevels.cs" />
+    <Compile Include="ConfigFileHelper.cs" />
+    <Compile Include="ICheckPrsErrorLevels.cs" />
+    <Compile Include="IConfigFileHelper.cs" />
+    <Compile Include="INotifyPartiesOfPrsIssues.cs" />
+    <Compile Include="IReportingEntities.cs">
+      <DependentUpon>ReportingModel.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="NotifyPartiesOfPrsIssues.cs" />
     <Compile Include="RecordPRSErrorActivity.cs" />
     <Compile Include="ePharmacyEntities.cs">
@@ -79,9 +86,6 @@
     <Compile Include="IePharmacyEntities.cs">
       <DependentUpon>ePharmacyModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="IReportingEntities.cs">
-      <DependentUpon>ReportingModel.Context.tt</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportingEntities.cs">
@@ -108,11 +112,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportingModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\RetrieveLatestRowFromPrsErrorMonitorTable.cs" />
+    <Compile Include="Repository\RetrieveRowsFromPrsErrorMonitorTableForTimeSpecified.cs" />
     <Compile Include="Repository\ReturnErrorCount.cs" />
     <Compile Include="Repository\UpdatePRSErrorMonitorTable.cs" />
-    <Compile Include="SMTPWrapper.cs" />
     <Compile Include="tbAuditExchangeInbound.cs">
       <DependentUpon>ePharmacyModel.tt</DependentUpon>
     </Compile>

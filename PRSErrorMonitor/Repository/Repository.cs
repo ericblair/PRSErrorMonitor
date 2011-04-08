@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PRSErrorMonitor
 {
-    partial class Repository
+    partial class Repository : IRepository
     {
         private IePharmacyEntities _ePharmacyEntityContext;
         private IReportingEntities _reportingEntityContext;

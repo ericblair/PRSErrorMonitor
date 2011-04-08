@@ -6,22 +6,11 @@
     <edmx:StorageModels>
       <Schema Namespace="ReportingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ReportingModelStoreContainer">
-          <EntitySet Name="tbPRSErrorMonitor" EntityType="ReportingModel.Store.tbPRSErrorMonitor" store:Type="Tables" store:Schema="dbo" store:Name="tbPRSErrorMonitor">
-            <DefiningQuery>SELECT 
-      [tbPRSErrorMonitor].[DateTime] AS [DateTime], 
-      [tbPRSErrorMonitor].[PRSUnavailableErrors] AS [PRSUnavailableErrors], 
-      [tbPRSErrorMonitor].[PRSTimeoutErrors] AS [PRSTimeoutErrors]
-      FROM [dbo].[tbPRSErrorMonitor] AS [tbPRSErrorMonitor]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="tbPRSErrorMonitor" EntityType="ReportingModel.Store.tbPRSErrorMonitor" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'Reporting.dbo.tbPRSErrorMonitor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="tbPRSErrorMonitor">
           <Key>
             <PropertyRef Name="DateTime" />
-            <PropertyRef Name="PRSUnavailableErrors" />
-            <PropertyRef Name="PRSTimeoutErrors" />
           </Key>
           <Property Name="DateTime" Type="datetime" Nullable="false" />
           <Property Name="PRSUnavailableErrors" Type="int" Nullable="false" />
@@ -38,8 +27,6 @@
         <EntityType Name="tbPRSErrorMonitor">
           <Key>
             <PropertyRef Name="DateTime" />
-            <PropertyRef Name="PRSUnavailableErrors" />
-            <PropertyRef Name="PRSTimeoutErrors" />
           </Key>
           <Property Name="DateTime" Type="DateTime" Nullable="false" />
           <Property Name="PRSUnavailableErrors" Type="Int32" Nullable="false" />

@@ -323,5 +323,53 @@ namespace PRSErrorMonitorTests
             Assert.AreEqual(DateTime.Now.AddSeconds(-DateTime.Now.Second).ToString(),
                             _configFileHelperStub.TimeLastPrsErrorCheckWasRun.AddSeconds(-_configFileHelperStub.TimeLastPrsErrorCheckWasRun.Second).ToString());
         }
+
+        [TestMethod]
+        public void EmailSentFlagHasNotBeenSet_ErrorLimitsHaveBeenExceeded_EmailIsSent()
+        {
+            _configFileHelperStub.EmailSentFlag = 0;
+            _configFileHelperStub.PrsErrorCheckFrequency = 1;
+
+            DateTime _errorDateTime = DateTime.Now;
+
+            int _numOfUnavailableErrors = 10;
+            int _numOfTimeoutErrors = 10;
+            int _unavailableErrorLimit = 10, _timeoutErrorLimit = 10, _totalErrorLimit = 50;
+
+            _configFileHelperStub.PrsUnavailableErrorLimit = _unavailableErrorLimit;
+            _configFileHelperStub.PrsTimeoutErrorLimit = _timeoutErrorLimit;
+            _configFileHelperStub.PrsTotalErrorLimit = _totalErrorLimit;
+
+            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
+
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
+
+            _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Once());
+        }
+
+        [TestMethod]
+        public void EmailSentFlagHasBeenSet_ErrorLimitsHaveBeenExceeded_EmailIsNotSent()
+        {
+            _configFileHelperStub.EmailSentFlag = 1;
+            _configFileHelperStub.PrsErrorCheckFrequency = 1;
+
+            DateTime _errorDateTime = DateTime.Now;
+
+            int _numOfUnavailableErrors = 10;
+            int _numOfTimeoutErrors = 10;
+            int _unavailableErrorLimit = 10, _timeoutErrorLimit = 10, _totalErrorLimit = 50;
+
+            _configFileHelperStub.PrsUnavailableErrorLimit = _unavailableErrorLimit;
+            _configFileHelperStub.PrsTimeoutErrorLimit = _timeoutErrorLimit;
+            _configFileHelperStub.PrsTotalErrorLimit = _totalErrorLimit;
+
+            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
+
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
+
+            _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Never());
+        }
     }
 }

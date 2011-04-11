@@ -77,6 +77,8 @@ namespace PRSErrorMonitor
 
             if (_limitHasBeenExceeded == true)
             {
+                // Check that notification email has not already been sent out
+                if (_configFileHelper.EmailSentFlag == 1) return;
                 _notifyPartiesOfPrsIssues.SendEmailToHelpdesk(_prsUnavailableErrorLimitExceeded, _prsTimeoutErrorLimitExceeded, _prsTotalErrorLimitExceeded);
             }
 

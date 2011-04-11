@@ -8,11 +8,13 @@ namespace PRSErrorMonitor
     class RecordPRSErrorActivity
     {
         private IRepository _repository;
+        private ILogger _log;
         
         // Standard usage and unit testing constructor
-        public RecordPRSErrorActivity(IRepository repository)
+        public RecordPRSErrorActivity(IRepository repository, ILogger log)
         {
             _repository = repository;
+            _log = log;
         }
 
         /// <summary>
@@ -29,14 +31,19 @@ namespace PRSErrorMonitor
 
             DateTime _previousMinute = DateTime.Now.AddMinutes(-1);
 
-            // try / catch
+            try
+            {
+                // Find out how many PRS errors occured in the previous minute
+                _numberOfPRSUnavailableErrors = _repository.ReturnErrorCountInPreviousMinute(_previousMinute, _prsUnavailableErrorCode);
+                _numberOfPRSTimeoutErrors = _repository.ReturnErrorCountInPreviousMinute(_previousMinute, _prsTimeoutErrorCode);
 
-            // Find out how many PRS errors occured in the previous minute
-            _numberOfPRSUnavailableErrors = _repository.ReturnErrorCountInPreviousMinute(_previousMinute, _prsUnavailableErrorCode);
-            _numberOfPRSTimeoutErrors = _repository.ReturnErrorCountInPreviousMinute(_previousMinute, _prsTimeoutErrorCode);
-
-            // Save details of PRS errors to tbPRSErrorMonitor
-            _repository.UpdatePRSErrorMonitorTable(_previousMinute, _numberOfPRSUnavailableErrors, _numberOfPRSTimeoutErrors);
+                // Save details of PRS errors to tbPRSErrorMonitor
+                _repository.UpdatePRSErrorMonitorTable(_previousMinute, _numberOfPRSUnavailableErrors, _numberOfPRSTimeoutErrors);
+            }
+            catch(Exception ex)
+            {
+                _log.Add("Error Detected: " + ex.Message + ex.InnerException);
+            }
         }
     }
 }

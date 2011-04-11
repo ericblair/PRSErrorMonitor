@@ -15,6 +15,7 @@ namespace PRSErrorMonitorTests
         private IePharmacyEntities _ePharmMockEntity;
         private IReportingEntities _reportingMockEntity;
         private IRepository _mockRepository;
+        ILogger _log;
 
         private int UnableToContactPRSError = 3000;
         private int PRSTimeoutError = 3005;
@@ -25,12 +26,13 @@ namespace PRSErrorMonitorTests
             _ePharmMockEntity = new ePharmacyEntitiesMock();
             _reportingMockEntity = new ReportingEntitiesMock();
             _mockRepository = new Repository(_ePharmMockEntity, _reportingMockEntity);
+            _log = new Logger();
         }
 
         [TestMethod]
         public void NoDataExistsIntbAuditExchangeInbound_ErrorCountsEqualZero()
         {
-            RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository);
+            RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository, _log);
             _recordPrsErrorActivity.RecordPRSErrorCounts();
 
             Assert.AreEqual(_reportingMockEntity.tbPRSErrorMonitor.ElementAt(0).PRSUnavailableErrors, 0);
@@ -46,7 +48,7 @@ namespace PRSErrorMonitorTests
             _ePharmMockEntity.tbAuditExchangeInbound.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbAuditExchangeInbound.AddTableRow(UnableToContactPRSError, _tenMinutesAgo));
             _ePharmMockEntity.tbAuditExchangeInbound.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbAuditExchangeInbound.AddTableRow(PRSTimeoutError, _tenMinutesAgo));
 
-            RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository);
+            RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository, _log);
             _recordPrsErrorActivity.RecordPRSErrorCounts();
 
             Assert.AreEqual(_reportingMockEntity.tbPRSErrorMonitor.ElementAt(0).PRSUnavailableErrors, 0);
@@ -59,7 +61,7 @@ namespace PRSErrorMonitorTests
             DateTime previousMinute = DateTime.Now.AddMinutes(-1);
             _ePharmMockEntity.tbAuditExchangeInbound.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbAuditExchangeInbound.AddTableRow(UnableToContactPRSError, previousMinute));
 
-            RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository);
+            RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository, _log);
             _recordPrsErrorActivity.RecordPRSErrorCounts();
 
             Assert.AreEqual(_reportingMockEntity.tbPRSErrorMonitor.ElementAt(0).PRSUnavailableErrors, 1);
@@ -71,7 +73,7 @@ namespace PRSErrorMonitorTests
             DateTime previousMinute = DateTime.Now.AddMinutes(-1);
             _ePharmMockEntity.tbAuditExchangeInbound.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbAuditExchangeInbound.AddTableRow(PRSTimeoutError, previousMinute));
 
-            RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository);
+            RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository, _log);
             _recordPrsErrorActivity.RecordPRSErrorCounts();
 
             Assert.AreEqual(_reportingMockEntity.tbPRSErrorMonitor.ElementAt(0).PRSTimeoutErrors, 1);
@@ -90,7 +92,7 @@ namespace PRSErrorMonitorTests
             _ePharmMockEntity.tbAuditExchangeInbound.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbAuditExchangeInbound.AddTableRow(PRSTimeoutError, previousMinute));
             _ePharmMockEntity.tbAuditExchangeInbound.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbAuditExchangeInbound.AddTableRow(PRSTimeoutError, previousMinute));
 
-            RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository);
+            RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository, _log);
             _recordPrsErrorActivity.RecordPRSErrorCounts();
 
             Assert.AreEqual(_reportingMockEntity.tbPRSErrorMonitor.ElementAt(0).PRSUnavailableErrors, 2);

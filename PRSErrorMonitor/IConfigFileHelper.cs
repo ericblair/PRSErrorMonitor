@@ -18,5 +18,8 @@ namespace PRSErrorMonitor
         string TotalErrorLimitExceededBodyText { get; set; }
         string UnavailableErrorLimitExceededBodyText { get; set; }
         int EmailSentFlag { get; set; }
+
+        void UpdateTimeLastPrsErrorCheckWasRun();
+        void RecordEmailHavingBeenSent();
     }
 }

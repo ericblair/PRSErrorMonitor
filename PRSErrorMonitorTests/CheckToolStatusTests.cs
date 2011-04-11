@@ -14,12 +14,14 @@ namespace PRSErrorMonitorTests
     {
         IConfigFileHelper _configFileHelperStub;
         Mock<ICheckPrsErrorLevels> _checkPrsErrorLevels;
+        ILogger _log;
 
         [TestInitialize]
         public void TestInitialize()
         {
             _configFileHelperStub = new TestHelpers.Stubs.ConfigFileHelperStub();
             _checkPrsErrorLevels = new Mock<ICheckPrsErrorLevels>();
+            _log = new Logger();
         }
         
         [TestMethod]
@@ -27,7 +29,7 @@ namespace PRSErrorMonitorTests
         {
             _configFileHelperStub.PrsErrorCheckFrequency = 1;
 
-            CheckToolStatus _checkToolStatus = new CheckToolStatus(_configFileHelperStub, _checkPrsErrorLevels.Object);
+            CheckToolStatus _checkToolStatus = new CheckToolStatus(_configFileHelperStub, _checkPrsErrorLevels.Object, _log);
             _checkToolStatus.DetermineIfPrsErrorActivityShouldBeChecked();
 
             _checkPrsErrorLevels.Verify(x => x.CheckIfPrsHasExceededErrorLimit(), Times.Once());
@@ -39,7 +41,7 @@ namespace PRSErrorMonitorTests
             _configFileHelperStub.PrsErrorCheckFrequency = 10;
             _configFileHelperStub.TimeLastPrsErrorCheckWasRun = DateTime.Now.AddMinutes(-11);
 
-            CheckToolStatus _checkToolStatus = new CheckToolStatus(_configFileHelperStub, _checkPrsErrorLevels.Object);
+            CheckToolStatus _checkToolStatus = new CheckToolStatus(_configFileHelperStub, _checkPrsErrorLevels.Object, _log);
             _checkToolStatus.DetermineIfPrsErrorActivityShouldBeChecked();
 
             _checkPrsErrorLevels.Verify(x => x.CheckIfPrsHasExceededErrorLimit(), Times.Once());
@@ -51,7 +53,7 @@ namespace PRSErrorMonitorTests
             _configFileHelperStub.PrsErrorCheckFrequency = 10;
             _configFileHelperStub.TimeLastPrsErrorCheckWasRun = DateTime.Now.AddMinutes(-9);
 
-            CheckToolStatus _checkToolStatus = new CheckToolStatus(_configFileHelperStub, _checkPrsErrorLevels.Object);
+            CheckToolStatus _checkToolStatus = new CheckToolStatus(_configFileHelperStub, _checkPrsErrorLevels.Object, _log);
             _checkToolStatus.DetermineIfPrsErrorActivityShouldBeChecked();
 
             _checkPrsErrorLevels.Verify(x => x.CheckIfPrsHasExceededErrorLimit(), Times.Never());

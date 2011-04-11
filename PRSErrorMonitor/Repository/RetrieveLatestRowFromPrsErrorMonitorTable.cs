@@ -10,7 +10,10 @@ namespace PRSErrorMonitor
         public tbPRSErrorMonitor RetrieveLatestRowFromPrsErrorMonitorTable()
         {
             var _lastRecord = (from reporting in _reportingEntityContext.tbPRSErrorMonitor
-                               select reporting).LastOrDefault();
+                               select reporting).ToList<tbPRSErrorMonitor>().LastOrDefault();
+                                //_reportingEntityContext.tbPRSErrorMonitor.OrderBy(reporting => reporting.DateTime).Last();
+                                //(from reporting in _reportingEntityContext.tbPRSErrorMonitor
+                                // select reporting).LastOrDefault();
 
             return _lastRecord;
         }

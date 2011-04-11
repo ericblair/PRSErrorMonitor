@@ -9,17 +9,36 @@ namespace PRSErrorMonitor
     {
         static void Main(string[] args)
         {
+            ILogger _log = new Logger();
             ePharmacyEntities _ePharmEntity = new ePharmacyEntities();
             ReportingEntities _reportingEntity = new ReportingEntities();
             Repository _repository = new Repository(_ePharmEntity, _reportingEntity);
 
-            RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_repository);
-            _recordPrsErrorActivity.RecordPRSErrorCounts();
+            try
+            {
+                // Check ePharmacy.tbAuditExchangeInbound for any PRS errors that have occured in the previous minute
+                RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_repository, _log);
+                _recordPrsErrorActivity.RecordPRSErrorCounts();
 
-            ConfigFileHelper _configFileHelper = new ConfigFileHelper();
-            NotifyPartiesOfPrsIssues _notifyPartiesOfPrsIssues = new NotifyPartiesOfPrsIssues();
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_repository, _configFileHelper, _notifyPartiesOfPrsIssues);
-            CheckToolStatus _checkToolStatus = new CheckToolStatus(_configFileHelper, _checkPrsErrorLevels);
+                // ConfigFileHelper: Utility class to assist reading from / writing to the config file
+                ConfigFileHelper _configFileHelper = new ConfigFileHelper();
+
+                // NotifyPartiesOfPrsIssues: used to send an email warning of PRS errors if the limits have been exceeded
+                // (which is checked in CheckPrsErrorLevels, which itself is called in CheckToolStatus)
+                // This is a poor design as two objects are instantiated despite possibly not being required
+                NotifyPartiesOfPrsIssues _notifyPartiesOfPrsIssues = new NotifyPartiesOfPrsIssues(_log);
+                CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_repository, _configFileHelper, _notifyPartiesOfPrsIssues, _log);
+                CheckToolStatus _checkToolStatus = new CheckToolStatus(_configFileHelper, _checkPrsErrorLevels, _log);
+                _checkToolStatus.DetermineIfPrsErrorActivityShouldBeChecked();
+            }
+            catch(Exception ex)
+            {
+                _log.Add("Error Detected: " + ex.Message + ex.InnerException);
+            }
+            finally
+            {
+                _log.Write();
+            }
         }
     }
 }

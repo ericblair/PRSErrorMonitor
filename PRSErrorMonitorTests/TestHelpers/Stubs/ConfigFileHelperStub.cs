@@ -22,5 +22,14 @@ namespace PRSErrorMonitorTests.TestHelpers.Stubs
         public string TotalErrorLimitExceededBodyText { get; set; }
         public string UnavailableErrorLimitExceededBodyText { get; set; }
         public int EmailSentFlag { get; set; }
+
+        public void RecordEmailHavingBeenSent() 
+        {
+            EmailSentFlag = 1;
+        }
+        public void UpdateTimeLastPrsErrorCheckWasRun() 
+        {
+            TimeLastPrsErrorCheckWasRun = DateTime.Now;
+        }
     }
 }

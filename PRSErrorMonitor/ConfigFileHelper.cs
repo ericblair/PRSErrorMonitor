@@ -47,63 +47,63 @@ namespace PRSErrorMonitor
             get { return _prsErrorCheckFrequency; }
             set { ; }
         }
-        public DateTime TimeLastPrsErrorCheckWasRun 
-        { 
+        public DateTime TimeLastPrsErrorCheckWasRun
+        {
             get { return _timeLastPrsErrorCheckWasRun; }
-            set { _timeLastPrsErrorCheckWasRun = value; }
+            set { ; }
         }
-        public int PrsUnavailableErrorLimit 
-        { 
+        public int PrsUnavailableErrorLimit
+        {
             get { return _prsUnavailableErrorLimit; }
             set { ; }
         }
-        public int PrsTimeoutErrorLimit 
-        { 
+        public int PrsTimeoutErrorLimit
+        {
             get { return _prsTimeoutErrorLimit; }
             set { ; }
         }
-        public int PrsTotalErrorLimit 
-        { 
+        public int PrsTotalErrorLimit
+        {
             get { return _prsTotalErrorLimit; }
             set { ; }
         }
-        public string EmailSubject 
-        { 
+        public string EmailSubject
+        {
             get { return _emailSubject; }
             set { ; }
         }
-        public string UnavailableErrorLimitExceededBodyText 
-        { 
+        public string UnavailableErrorLimitExceededBodyText
+        {
             get { return _unavailableErrorLimitExceededBodyText; }
             set { ; }
         }
-        public string TimeoutErrorLimitExceededBodyText 
-        { 
+        public string TimeoutErrorLimitExceededBodyText
+        {
             get { return _timeoutErrorLimitExceededBodyText; }
             set { ; }
         }
-        public string TotalErrorLimitExceededBodyText 
-        { 
+        public string TotalErrorLimitExceededBodyText
+        {
             get { return _totalErrorLimitExceededBodyText; }
             set { ; }
         }
-        public string EmailToAddress 
-        { 
+        public string EmailToAddress
+        {
             get { return _emailToAddress; }
             set { ; }
         }
-        public string EmailFromAddress 
-        { 
+        public string EmailFromAddress
+        {
             get { return _emailFromAddress; }
             set { ; }
         }
-        public string EmailCCAddresses 
-        { 
+        public string EmailCCAddresses
+        {
             get { return _emailCCAddress; }
             set { ; }
         }
-        public string EmailReplyToAddress 
-        { 
+        public string EmailReplyToAddress
+        {
             get { return _emailReplyToAddress; }
             set { ; }
         }
@@ -111,6 +111,26 @@ namespace PRSErrorMonitor
         {
             get { return _emailSentFlag; }
             set { ; }
+        }
+
+        public void UpdateTimeLastPrsErrorCheckWasRun()
+        {
+            _timeLastPrsErrorCheckWasRun = DateTime.Now;
+            Configuration _configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            _configFile.AppSettings.Settings.Remove("TimeLastPrsErrorCheckWasRun");
+            _configFile.AppSettings.Settings.Add("TimeLastPrsErrorCheckWasRun", _timeLastPrsErrorCheckWasRun.ToString());
+            _configFile.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        public void RecordEmailHavingBeenSent()
+        {
+            _emailSentFlag = 1;
+            Configuration _configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            _configFile.AppSettings.Settings.Remove("EmailSentFlag");
+            _configFile.AppSettings.Settings.Add("EmailSentFlag", _emailSentFlag.ToString());
+            _configFile.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
         }
     }
 }

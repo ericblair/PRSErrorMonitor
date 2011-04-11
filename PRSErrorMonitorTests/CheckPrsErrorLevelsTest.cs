@@ -17,6 +17,7 @@ namespace PRSErrorMonitorTests
         IRepository _mockRepository;
         IConfigFileHelper _configFileHelperStub;
         Mock<INotifyPartiesOfPrsIssues> _notifyPartiesOfPrsIssues;
+        ILogger _log;
 
         [TestInitialize]
         public void TestInitialize()
@@ -26,6 +27,7 @@ namespace PRSErrorMonitorTests
             _mockRepository = new Repository(_ePharmMockEntity, _reportingMockEntity);
             _configFileHelperStub = new TestHelpers.Stubs.ConfigFileHelperStub();
             _notifyPartiesOfPrsIssues = new Mock<INotifyPartiesOfPrsIssues>();
+            _log = new Logger();
         }
 
         [TestMethod]
@@ -42,7 +44,7 @@ namespace PRSErrorMonitorTests
             _configFileHelperStub.PrsTotalErrorLimit = _totalErrorLimit;
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
 
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object, _log);
             _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
 
             _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Never());
@@ -65,7 +67,7 @@ namespace PRSErrorMonitorTests
             _configFileHelperStub.PrsTotalErrorLimit = _totalErrorLimit;
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
 
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object, _log);
             _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
 
             _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Once());
@@ -88,7 +90,7 @@ namespace PRSErrorMonitorTests
             _configFileHelperStub.PrsTotalErrorLimit = _totalErrorLimit;
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
 
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object, _log);
             _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
 
             _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Never());
@@ -111,7 +113,7 @@ namespace PRSErrorMonitorTests
             _configFileHelperStub.PrsTotalErrorLimit = _totalErrorLimit;
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
 
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object, _log);
             _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
 
             _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Once());
@@ -134,7 +136,7 @@ namespace PRSErrorMonitorTests
             _configFileHelperStub.PrsTotalErrorLimit = _totalErrorLimit;
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
 
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object, _log);
             _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
 
             _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Never());
@@ -157,7 +159,7 @@ namespace PRSErrorMonitorTests
             _configFileHelperStub.PrsTotalErrorLimit = _totalErrorLimit;
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
 
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object, _log);
             _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
 
             _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Once());
@@ -183,7 +185,7 @@ namespace PRSErrorMonitorTests
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime.AddMinutes(-6), _numOfUnavailableErrors, _numOfTimeoutErrors));
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime.AddMinutes(-3), _numOfUnavailableErrors, _numOfTimeoutErrors));
 
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object, _log);
             _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
 
             _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Never());
@@ -211,7 +213,7 @@ namespace PRSErrorMonitorTests
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime.AddMinutes(-3), _numOfUnavailableErrors, _numOfTimeoutErrors));
 
 
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object, _log);
             _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
 
             _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Once());
@@ -237,7 +239,7 @@ namespace PRSErrorMonitorTests
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime.AddMinutes(-6), _numOfUnavailableErrors, _numOfTimeoutErrors));
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime.AddMinutes(-3), _numOfUnavailableErrors, _numOfTimeoutErrors));
 
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object, _log);
             _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
 
             _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Never());
@@ -263,7 +265,7 @@ namespace PRSErrorMonitorTests
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime.AddMinutes(-6), _numOfUnavailableErrors, _numOfTimeoutErrors));
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime.AddMinutes(-3), _numOfUnavailableErrors, _numOfTimeoutErrors));
 
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object, _log);
             _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
 
             _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Once());
@@ -289,7 +291,7 @@ namespace PRSErrorMonitorTests
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime.AddMinutes(-6), _numOfUnavailableErrors, _numOfTimeoutErrors));
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime.AddMinutes(-3), _numOfUnavailableErrors, _numOfTimeoutErrors));
 
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object, _log);
             _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
 
             _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Never());
@@ -315,7 +317,7 @@ namespace PRSErrorMonitorTests
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime.AddMinutes(-6), _numOfUnavailableErrors, _numOfTimeoutErrors));
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime.AddMinutes(-3), _numOfUnavailableErrors, _numOfTimeoutErrors));
 
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object, _log);
             _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
 
             _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Once());
@@ -342,7 +344,7 @@ namespace PRSErrorMonitorTests
 
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
 
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object, _log);
             _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
 
             _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Once());
@@ -366,7 +368,7 @@ namespace PRSErrorMonitorTests
 
             _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(_errorDateTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
 
-            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object);
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _notifyPartiesOfPrsIssues.Object, _log);
             _checkPrsErrorLevels.CheckIfPrsHasExceededErrorLimit();
 
             _notifyPartiesOfPrsIssues.Verify(x => x.SendEmailToHelpdesk(It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Never());

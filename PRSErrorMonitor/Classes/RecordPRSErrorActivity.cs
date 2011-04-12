@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PRSErrorMonitor
 {
+    /// <summary>
+    /// Checks the live database for any PRS issues and records them in the Reporting.tbPrsErrorMonitor table
+    /// </summary>
     class RecordPRSErrorActivity
     {
         private IRepository _repository;

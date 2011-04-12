@@ -51,19 +51,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DetermineIfPrsErrorActivityShouldBeChecked.cs" />
-    <Compile Include="CheckPrsErrorLevels.cs" />
-    <Compile Include="ConfigFileHelper.cs" />
-    <Compile Include="ICheckPrsErrorLevels.cs" />
-    <Compile Include="IConfigFileHelper.cs" />
-    <Compile Include="ILogger.cs" />
-    <Compile Include="INotifyPartiesOfPrsIssues.cs" />
+    <Compile Include="Classes\DetermineIfPrsErrorActivityShouldBeChecked.cs" />
+    <Compile Include="Classes\CheckPrsErrorLevels.cs" />
+    <Compile Include="Classes\ConfigFileHelper.cs" />
+    <Compile Include="Interfaces\ICheckPrsErrorLevels.cs" />
+    <Compile Include="Interfaces\IConfigFileHelper.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\IReportPrsErrors.cs" />
     <Compile Include="IReportingEntities.cs">
       <DependentUpon>ReportingModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Logger.cs" />
-    <Compile Include="NotifyPartiesOfPrsIssues.cs" />
-    <Compile Include="RecordPRSErrorActivity.cs" />
+    <Compile Include="Classes\Logger.cs" />
+    <Compile Include="Classes\ReportPrsErrors.cs" />
+    <Compile Include="Classes\RecordPRSErrorActivity.cs" />
     <Compile Include="ePharmacyEntities.cs">
       <DependentUpon>ePharmacyModel.Context.tt</DependentUpon>
     </Compile>
@@ -117,7 +117,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportingModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\RetrieveLatestRowFromPrsErrorMonitorTable.cs" />
     <Compile Include="Repository\RetrieveRowsFromPrsErrorMonitorTableForTimeSpecified.cs" />

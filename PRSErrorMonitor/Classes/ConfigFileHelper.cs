@@ -6,7 +6,7 @@ using System.Configuration;
 
 namespace PRSErrorMonitor
 {
-    // Created this class to decouple the dependency some of my classes had on the config file
+    // Created this class to decouple the dependencies some of the classes had on the config file
     public class ConfigFileHelper : PRSErrorMonitor.IConfigFileHelper
     {
         private int _prsErrorCheckFrequency;

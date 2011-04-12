@@ -7,6 +7,10 @@ using System.Text;
 
 namespace PRSErrorMonitor
 {
+    /// <summary>
+    /// Added this to assist tracking down an issue. Still implemented a bit scrappy.
+    /// TODO: Review the logging data being passed to Add in my classes and email a copy of the log file should an error occur.
+    /// </summary>
     class Logger : PRSErrorMonitor.ILogger
     {
         private List<String> _log = new List<string>();

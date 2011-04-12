@@ -7,20 +7,23 @@ using System.Configuration;
 
 namespace PRSErrorMonitor
 {
-    public class NotifyPartiesOfPrsIssues : PRSErrorMonitor.INotifyPartiesOfPrsIssues
+    /// <summary>
+    /// This class is responsible for notifying interested parties when there is an issue with PRS
+    /// </summary>
+    public class ReportPrsErrors : PRSErrorMonitor.IReportPrsErrors
     {
         SmtpClient _smtpClient;
         IConfigFileHelper _configFileHelper;
         ILogger _log;
  
-        public NotifyPartiesOfPrsIssues(ILogger log)
+        public ReportPrsErrors(ILogger log)
         {
             _smtpClient = new SmtpClient();
             _configFileHelper = new ConfigFileHelper();
             _log = log;
         }
 
-        public void SendEmailToHelpdesk(bool prsUnavailableErrorLimitReached, bool prsTimeoutErrorLimitReached, bool prsTotalErrorLimitReached)
+        public void SendEmail(bool prsUnavailableErrorLimitReached, bool prsTimeoutErrorLimitReached, bool prsTotalErrorLimitReached)
         {
             try
             {

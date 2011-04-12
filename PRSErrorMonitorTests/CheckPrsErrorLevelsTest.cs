@@ -16,10 +16,8 @@ namespace PRSErrorMonitorTests
         IReportingEntities _reportingMockEntity;
         IRepository _mockRepository;
         IConfigFileHelper _configFileHelperStub;
-        Mock<INotifyPartiesOfPrsIssues> _notifyPartiesOfPrsIssues;
         ILogger _log;
-        CheckPrsErrorLevels _checkPrsErrorLevels;
-
+        
         [TestInitialize]
         public void TestInitialize()
         {
@@ -28,7 +26,6 @@ namespace PRSErrorMonitorTests
             _mockRepository = new Repository(_ePharmMockEntity, _reportingMockEntity);
             _configFileHelperStub = new TestHelpers.Stubs.ConfigFileHelperStub();
             _log = new Logger();
-            _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
         }
 
         #region OldTestMethods
@@ -385,6 +382,8 @@ namespace PRSErrorMonitorTests
             // Arrange
             _configFileHelperStub.EmailSentFlag = 1;
             bool _issueHasBeenReported = false;
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
+            
 
             // Act
             _issueHasBeenReported = _checkPrsErrorLevels.PrsIssueHasAlreadyBeenReported();
@@ -399,12 +398,181 @@ namespace PRSErrorMonitorTests
             // Arrange
             _configFileHelperStub.EmailSentFlag = 0;
             bool _issueHasBeenReported = false;
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
 
             // Act
             _issueHasBeenReported = _checkPrsErrorLevels.PrsIssueHasAlreadyBeenReported();
 
             // Assert
             Assert.IsFalse(_issueHasBeenReported);
+        }
+
+        [TestMethod]
+        public void UnavailableErrorLimitHasBeenExceeded_CheckFrequencyEqualsOneMinute_ReturnsTrue()
+        {
+            // Arrange
+            _configFileHelperStub.PrsErrorCheckFrequency = 1;
+            _configFileHelperStub.PrsUnavailableErrorLimit = 10;
+            DateTime _checkRunTime = DateTime.Now;
+            int _numOfUnavailableErrors = 20;
+            int _numOfTimeoutErrors = 0;
+            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+                _checkRunTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
+            bool _unavailableErrorLimitExceeded = false;
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
+
+            // Act
+            _unavailableErrorLimitExceeded = _checkPrsErrorLevels.PrsUnavailableErrorLevelExceeded();
+
+            // Assert
+            Assert.IsTrue(_unavailableErrorLimitExceeded);
+        }
+
+        [TestMethod]
+        public void UnavailableErrorLimitHasBeenExceeded_CheckFrequencyEqualsTenMinutes_ReturnsTrue()
+        {
+            // Arrange
+            _configFileHelperStub.PrsErrorCheckFrequency = 10;
+            _configFileHelperStub.PrsUnavailableErrorLimit = 10;
+            DateTime _checkRunTime = DateTime.Now;
+            int _numOfUnavailableErrors = 20;
+            int _numOfTimeoutErrors = 0;
+            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+                _checkRunTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
+            bool _unavailableErrorLimitExceeded = false;
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
+
+            // Act
+            _unavailableErrorLimitExceeded = _checkPrsErrorLevels.PrsUnavailableErrorLevelExceeded();
+
+            // Assert
+            Assert.IsTrue(_unavailableErrorLimitExceeded);
+        }
+
+        [TestMethod]
+        public void UnavailableErrorLimitHasNotBeenExceeded_CheckFrequencyEqualsOneMinute_ReturnsFalse()
+        {
+            // Arrange
+            _configFileHelperStub.PrsErrorCheckFrequency = 1;
+            _configFileHelperStub.PrsUnavailableErrorLimit = 20;
+            DateTime _checkRunTime = DateTime.Now;
+            int _numOfUnavailableErrors = 10;
+            int _numOfTimeoutErrors = 0;
+            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+                _checkRunTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
+            bool _unavailableErrorLimitExceeded = false;
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
+
+            // Act
+            _unavailableErrorLimitExceeded = _checkPrsErrorLevels.PrsUnavailableErrorLevelExceeded();
+
+            // Assert
+            Assert.IsFalse(_unavailableErrorLimitExceeded);
+        }
+
+        [TestMethod]
+        public void UnavailableErrorLimitHasNotBeenExceeded_CheckFrequencyEqualsTenMinutes_ReturnsFalse()
+        {
+            // Arrange
+            _configFileHelperStub.PrsErrorCheckFrequency = 10;
+            _configFileHelperStub.PrsUnavailableErrorLimit = 20;
+            DateTime _checkRunTime = DateTime.Now;
+            int _numOfUnavailableErrors = 10;
+            int _numOfTimeoutErrors = 0;
+            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+                _checkRunTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
+            bool _unavailableErrorLimitExceeded = false;
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
+
+            // Act
+            _unavailableErrorLimitExceeded = _checkPrsErrorLevels.PrsUnavailableErrorLevelExceeded();
+
+            // Assert
+            Assert.IsFalse(_unavailableErrorLimitExceeded);
+        }
+
+        [TestMethod]
+        public void TimeoutErrorLimitHasBeenExceeded_CheckFrequencyEqualsOneMinute_ReturnsTrue()
+        {
+            // Arrange
+            _configFileHelperStub.PrsErrorCheckFrequency = 1;
+            _configFileHelperStub.PrsTimeoutErrorLimit = 10;
+            DateTime _checkRunTime = DateTime.Now;
+            int _numOfUnavailableErrors = 0;
+            int _numOfTimeoutErrors = 20;
+            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+                _checkRunTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
+            bool _timeoutLimitExceeded = false;
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
+
+            // Act
+            _timeoutLimitExceeded = _checkPrsErrorLevels.PrsTimeoutErrorLevelExceeded();
+
+            // Assert
+            Assert.IsTrue(_timeoutLimitExceeded);
+        }
+
+        [TestMethod]
+        public void TimeoutErrorLimitHasBeenExceeded_CheckFrequencyEqualsTenMinutes_ReturnsTrue()
+        {
+            // Arrange
+            _configFileHelperStub.PrsErrorCheckFrequency = 10;
+            _configFileHelperStub.PrsTimeoutErrorLimit = 10;
+            DateTime _checkRunTime = DateTime.Now;
+            int _numOfUnavailableErrors = 0;
+            int _numOfTimeoutErrors = 20;
+            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+                _checkRunTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
+            bool _timeoutLimitExceeded = false;
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
+
+            // Act
+            _timeoutLimitExceeded = _checkPrsErrorLevels.PrsTimeoutErrorLevelExceeded();
+
+            // Assert
+            Assert.IsTrue(_timeoutLimitExceeded);
+        }
+
+        [TestMethod]
+        public void TimeoutErrorLimitHasNotBeenExceeded_CheckFrequencyEqualsOneMinute_ReturnsFalse()
+        {
+            // Arrange
+            _configFileHelperStub.PrsErrorCheckFrequency = 1;
+            _configFileHelperStub.PrsTimeoutErrorLimit = 20;
+            DateTime _checkRunTime = DateTime.Now;
+            int _numOfUnavailableErrors = 0;
+            int _numOfTimeoutErrors = 10;
+            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+                _checkRunTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
+            bool _timeoutLimitExceeded = false;
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
+
+            // Act
+            _timeoutLimitExceeded = _checkPrsErrorLevels.PrsTimeoutErrorLevelExceeded();
+
+            // Assert
+            Assert.IsFalse(_timeoutLimitExceeded);
+        }
+
+        [TestMethod]
+        public void TimeoutErrorLimitHasNotBeenExceeded_CheckFrequencyEqualsTenMinutes_ReturnsFalse()
+        {
+            // Arrange
+            _configFileHelperStub.PrsErrorCheckFrequency = 10;
+            _configFileHelperStub.PrsTimeoutErrorLimit = 20;
+            DateTime _checkRunTime = DateTime.Now;
+            int _numOfUnavailableErrors = 0;
+            int _numOfTimeoutErrors = 10;
+            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+                _checkRunTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
+            bool _timeoutLimitExceeded = false;
+            CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
+
+            // Act
+            _timeoutLimitExceeded = _checkPrsErrorLevels.PrsTimeoutErrorLevelExceeded();
+
+            // Assert
+            Assert.IsFalse(_timeoutLimitExceeded);
         }
     }
 }

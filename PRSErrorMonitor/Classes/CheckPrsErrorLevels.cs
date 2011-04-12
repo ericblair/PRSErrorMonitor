@@ -55,6 +55,9 @@ namespace PRSErrorMonitor
 
                 _totalNumberOfPrsErrors = _numberOfPrsUnavailableErrors + _numberOfPrsTimeoutErrors;
             }
+
+            // Update the config file with the time check was run
+            _configFileHelper.UpdateTimeLastPrsErrorCheckWasRun();
         }
 
         public bool PrsIssueHasAlreadyBeenReported()

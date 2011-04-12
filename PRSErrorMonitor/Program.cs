@@ -24,12 +24,18 @@ namespace PRSErrorMonitor
                 ConfigFileHelper _configFileHelper = new ConfigFileHelper();
 
                 // NotifyPartiesOfPrsIssues: used to send an email warning of PRS errors if the limits have been exceeded
-                // (which is checked in CheckPrsErrorLevels, which itself is called in CheckToolStatus)
+                // (which is checked in CheckPrsErrorLevels, which itself is called in DetermineIfPrsErrorActivityShouldBeChecked)
                 // This is a poor design as two objects are instantiated despite possibly not being required
+
+                DetermineIfPrsErrorActivityShouldBeChecked _checkToolStatus = new DetermineIfPrsErrorActivityShouldBeChecked(_configFileHelper, _log);
+                bool _shouldPrsErrorCheckBeRun = _checkToolStatus.Run();
+
+                // call CheckPrsErrorLevels like i called DetermineIfPrsErrorActivityShouldBeChecked above and then NotifyPartiesOfPrsIssues after
+
                 NotifyPartiesOfPrsIssues _notifyPartiesOfPrsIssues = new NotifyPartiesOfPrsIssues(_log);
-                CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_repository, _configFileHelper, _notifyPartiesOfPrsIssues, _log);
-                CheckToolStatus _checkToolStatus = new CheckToolStatus(_configFileHelper, _checkPrsErrorLevels, _log);
-                _checkToolStatus.DetermineIfPrsErrorActivityShouldBeChecked();
+                //CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_repository, _configFileHelper, _notifyPartiesOfPrsIssues, _log);
+                
+                
             }
             catch(Exception ex)
             {

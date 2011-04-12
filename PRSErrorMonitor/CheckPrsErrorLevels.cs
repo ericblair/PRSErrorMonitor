@@ -5,94 +5,94 @@ using System.Text;
 
 namespace PRSErrorMonitor
 {
+    /// <summary>
+    /// This class contains methods that determine whether the number of PRS errors exceed the limits specified in the config file
+    /// </summary>
     public class CheckPrsErrorLevels : PRSErrorMonitor.ICheckPrsErrorLevels
     {
         IRepository _repository;
         IConfigFileHelper _configFileHelper;
-        INotifyPartiesOfPrsIssues _notifyPartiesOfPrsIssues;
         ILogger _log;
 
-        public CheckPrsErrorLevels(IRepository repository, IConfigFileHelper configFileHelper, INotifyPartiesOfPrsIssues notifyPartiesOfPrsIssues, ILogger log)
+        int _prsUnavailableErrorLimit;
+        int _prsTimeoutErrorLimit;
+        int _prsTotalErrorLimit;
+
+        int _numberOfPrsUnavailableErrors = 0;
+        int _numberOfPrsTimeoutErrors = 0;
+        int _totalNumberOfPrsErrors = 0;
+
+        public CheckPrsErrorLevels(IRepository repository, IConfigFileHelper configFileHelper, ILogger log)
         {
             _repository = repository;
             _configFileHelper = configFileHelper;
-            _notifyPartiesOfPrsIssues = notifyPartiesOfPrsIssues;
             _log = log;
+
+            _prsUnavailableErrorLimit = _configFileHelper.PrsUnavailableErrorLimit;
+            _prsTimeoutErrorLimit = _configFileHelper.PrsTimeoutErrorLimit;
+            _prsTotalErrorLimit = _configFileHelper.PrsTotalErrorLimit;
+
+            // If check is to be run every minute, just grab the latest row from tbPrsErrorMonitor
+            if (_configFileHelper.PrsErrorCheckFrequency == 1)
+            {
+                tbPRSErrorMonitor _resultsFromLatestPrsCheck = _repository.RetrieveLatestRowFromPrsErrorMonitorTable();
+                _numberOfPrsUnavailableErrors = _resultsFromLatestPrsCheck.PRSUnavailableErrors;
+                _numberOfPrsTimeoutErrors = _resultsFromLatestPrsCheck.PRSTimeoutErrors;
+                _totalNumberOfPrsErrors = _numberOfPrsUnavailableErrors + _numberOfPrsTimeoutErrors;
+            }
+            else  // Grab all the rows created since check was last ran
+            {
+                // Been thinking about changing this to retrieive all records more recent than the lastTimeCheckWasRan 
+                // value in the config file as its more accurate and probably the same speed.....?
+                IList<tbPRSErrorMonitor> _prsErrorDetailsSinceLastCheck =
+                    _repository.RetrieveRowsFromPrsErrorMonitorTableForTimeSpecified(_configFileHelper.PrsErrorCheckFrequency);
+
+                foreach (var tableRow in _prsErrorDetailsSinceLastCheck)
+                {
+                    _numberOfPrsUnavailableErrors += tableRow.PRSUnavailableErrors;
+                    _numberOfPrsTimeoutErrors += tableRow.PRSTimeoutErrors;
+                }
+
+                _totalNumberOfPrsErrors = _numberOfPrsUnavailableErrors + _numberOfPrsTimeoutErrors;
+            }
         }
 
-        public void CheckIfPrsHasExceededErrorLimit()
+        public bool PrsIssueHasAlreadyBeenReported()
         {
-            try
+            // Read the flag value from the config file (should only ever be zero or one)
+            int _emailAlreadySentFlag = _configFileHelper.EmailSentFlag;
+
+            if (_emailAlreadySentFlag == 1)
+                return true;
+
+            return false;
+        }
+
+        public bool PrsUnavailableErrorLevelExceeded()
+        {
+            if (_numberOfPrsUnavailableErrors >= _prsUnavailableErrorLimit)
             {
-                // First check that an issue hasn't already been reported
-                if (_configFileHelper.EmailSentFlag == 1) return;
-
-                int _prsUnavailableErrorLimit = _configFileHelper.PrsUnavailableErrorLimit; // check for conversion error / zero value
-                int _prsTimeoutErrorLimit = _configFileHelper.PrsTimeoutErrorLimit; // as above
-                int _prsTotalErrorLimit = _configFileHelper.PrsTotalErrorLimit; // as above
-
-                int _numberOfPrsUnavailableErrors = 0;
-                int _numberOfPrsTimeoutErrors = 0;
-                int _totalNumberOfPrsErrors = 0;
-
-                if (_configFileHelper.PrsErrorCheckFrequency == 1)  // If check is to be run every minute, send email without worring about how long error has occured for
-                {
-                    tbPRSErrorMonitor _resultsFromLatestPrsCheck = _repository.RetrieveLatestRowFromPrsErrorMonitorTable();
-                    _numberOfPrsUnavailableErrors = _resultsFromLatestPrsCheck.PRSUnavailableErrors;
-                    _numberOfPrsTimeoutErrors = _resultsFromLatestPrsCheck.PRSTimeoutErrors;
-                    _totalNumberOfPrsErrors = _numberOfPrsUnavailableErrors + _numberOfPrsTimeoutErrors;
-                }
-                else
-                {
-                    IList<tbPRSErrorMonitor> _prsErrorDetailsSinceLastCheck =
-                        _repository.RetrieveRowsFromPrsErrorMonitorTableForTimeSpecified(_configFileHelper.PrsErrorCheckFrequency);
-
-                    foreach (var prsMonitorRow in _prsErrorDetailsSinceLastCheck)
-                    {
-                        _numberOfPrsUnavailableErrors += prsMonitorRow.PRSUnavailableErrors;
-                        _numberOfPrsTimeoutErrors += prsMonitorRow.PRSTimeoutErrors;
-                    }
-
-                    _totalNumberOfPrsErrors = _numberOfPrsUnavailableErrors + _numberOfPrsTimeoutErrors;
-                }
-
-                bool _limitHasBeenExceeded = false;
-                bool _prsUnavailableErrorLimitExceeded = false;
-                bool _prsTimeoutErrorLimitExceeded = false;
-                bool _prsTotalErrorLimitExceeded = false;
-
-                if (_numberOfPrsUnavailableErrors >= _prsUnavailableErrorLimit)
-                {
-                    _prsUnavailableErrorLimitExceeded = true;
-                    _limitHasBeenExceeded = true;
-                }
-
-                if (_numberOfPrsTimeoutErrors >= _prsTimeoutErrorLimit)
-                {
-                    _prsTimeoutErrorLimitExceeded = true;
-                    _limitHasBeenExceeded = true;
-                }
-
-                if (_totalNumberOfPrsErrors >= _prsTotalErrorLimit)
-                {
-                    _prsTotalErrorLimitExceeded = true;
-                    _limitHasBeenExceeded = true;
-                }
-
-                if (_limitHasBeenExceeded == true)
-                {
-                    // Check that notification email has not already been sent out
-                    if (_configFileHelper.EmailSentFlag == 1) return;
-                    _notifyPartiesOfPrsIssues.SendEmailToHelpdesk(_prsUnavailableErrorLimitExceeded, _prsTimeoutErrorLimitExceeded, _prsTotalErrorLimitExceeded);
-                }
-
-                // Update last check run time
-                _configFileHelper.UpdateTimeLastPrsErrorCheckWasRun();
+                return true;
             }
-            catch(Exception ex)
+            return false;
+        }
+
+        public bool PrsTimeoutErrorLevelExceeded()
+        {
+            if (_numberOfPrsTimeoutErrors >= _prsTimeoutErrorLimit)
             {
-                _log.Add("Error Detected: " + ex.Message + ex.InnerException);
+                return true;
             }
+            return false;
+        }
+
+        public bool PrsTotalErrorLevelExceeded()
+        {
+            if (_totalNumberOfPrsErrors >= _prsTotalErrorLimit)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

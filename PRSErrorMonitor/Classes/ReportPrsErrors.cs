@@ -60,15 +60,15 @@ namespace PRSErrorMonitor
                     return email;
                 }
 
-                string _bodyText = null;
+                string _bodyText = _configFileHelper.EmailBody;
 
                 if (prsUnavailableErrorLimitReached == true)
                 {
-                    _bodyText += _configFileHelper.UnavailableErrorLimitExceededBodyText;
+                    _bodyText += "\n\n" + _configFileHelper.UnavailableErrorLimitExceededBodyText;
                 }
                 if (prsTotalErrorLimitReached == true)
                 {
-                    _bodyText += _configFileHelper.TimeoutErrorLimitExceededBodyText;
+                    _bodyText += "\n\n" + _configFileHelper.TimeoutErrorLimitExceededBodyText;
                 }
 
                 email.Body = _bodyText;

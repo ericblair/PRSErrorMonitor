@@ -25,6 +25,13 @@ namespace PRSErrorMonitor
         {
             try
             {
+                // Check to see if helpdesk has already been notified of PRS issues without the emailSent flag having been reset
+                if (_configFileHelper.EmailSentFlag == 1)
+                {
+                    // No more warning emails should be sent until Support team sets EmailSent flag to zero
+                    return false;
+                }
+
                 // Read how often check should be ran (in minutes)
                 int _errorCheckFrequency = _configFileHelper.PrsErrorCheckFrequency;
                 

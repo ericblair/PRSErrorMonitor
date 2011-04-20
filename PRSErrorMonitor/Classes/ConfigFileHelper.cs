@@ -15,6 +15,7 @@ namespace PRSErrorMonitor
         private int _prsTimeoutErrorLimit;
         private int _prsTotalErrorLimit;
         private string _emailSubject;
+        private string _emailBody;
         private string _unavailableErrorLimitExceededBodyText;
         private string _timeoutErrorLimitExceededBodyText;
         private string _totalErrorLimitExceededBodyText;
@@ -32,6 +33,7 @@ namespace PRSErrorMonitor
             _prsTimeoutErrorLimit = Convert.ToInt32(ConfigurationManager.AppSettings["PrsTimeoutErrorLimit"]);
             _prsTotalErrorLimit = Convert.ToInt32(ConfigurationManager.AppSettings["PrsTotalErrorLimit"]);
             _emailSubject = ConfigurationManager.AppSettings["EmailSubject"];
+            _emailBody = ConfigurationManager.AppSettings["EmailBody"];
             _unavailableErrorLimitExceededBodyText = ConfigurationManager.AppSettings["UnavailableErrorLimitExceededBodyText"];
             _timeoutErrorLimitExceededBodyText = ConfigurationManager.AppSettings["TimeoutErrorLimitExceededBodyText"];
             _totalErrorLimitExceededBodyText = ConfigurationManager.AppSettings["TotalErrorLimitExceededBodyText"];
@@ -70,6 +72,11 @@ namespace PRSErrorMonitor
         public string EmailSubject
         {
             get { return _emailSubject; }
+            set { ; }
+        }
+        public string EmailBody
+        {
+            get { return _emailBody; }
             set { ; }
         }
         public string UnavailableErrorLimitExceededBodyText

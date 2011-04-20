@@ -14,6 +14,7 @@ namespace PRSErrorMonitor
         int PrsTotalErrorLimit { get; set; }
         int PrsUnavailableErrorLimit { get; set; }
         DateTime TimeLastPrsErrorCheckWasRun { get; set; }
+        string EmailBody { get; set; }
         string TimeoutErrorLimitExceededBodyText { get; set; }
         string TotalErrorLimitExceededBodyText { get; set; }
         string UnavailableErrorLimitExceededBodyText { get; set; }

@@ -50,11 +50,11 @@ namespace PRSErrorMonitor
     
         #region ObjectSet Properties
     
-        public IObjectSet<tbPRSErrorMonitor> tbPRSErrorMonitor
+        public IObjectSet<tbRPT_PRSErrorMonitor> tbRPT_PRSErrorMonitor
         {
-            get { return _tbPRSErrorMonitor ?? (_tbPRSErrorMonitor = CreateObjectSet<tbPRSErrorMonitor>("tbPRSErrorMonitor")); }
+            get { return _tbRPT_PRSErrorMonitor ?? (_tbRPT_PRSErrorMonitor = CreateObjectSet<tbRPT_PRSErrorMonitor>("tbRPT_PRSErrorMonitor")); }
         }
-        private ObjectSet<tbPRSErrorMonitor> _tbPRSErrorMonitor;
+        private ObjectSet<tbRPT_PRSErrorMonitor> _tbRPT_PRSErrorMonitor;
 
         #endregion
     }

@@ -6,9 +6,9 @@
     <edmx:StorageModels>
       <Schema Namespace="ReportingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ReportingModelStoreContainer">
-          <EntitySet Name="tbPRSErrorMonitor" EntityType="ReportingModel.Store.tbPRSErrorMonitor" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbRPT_PRSErrorMonitor" EntityType="ReportingModel.Store.tbRPT_PRSErrorMonitor" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
-        <EntityType Name="tbPRSErrorMonitor">
+        <EntityType Name="tbRPT_PRSErrorMonitor">
           <Key>
             <PropertyRef Name="DateTime" />
           </Key>
@@ -22,9 +22,9 @@
     <edmx:ConceptualModels>
       <Schema Namespace="ReportingModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="ReportingEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tbPRSErrorMonitor" EntityType="ReportingModel.tbPRSErrorMonitor" />
+          <EntitySet Name="tbRPT_PRSErrorMonitor" EntityType="ReportingModel.tbRPT_PRSErrorMonitor" />
         </EntityContainer>
-        <EntityType Name="tbPRSErrorMonitor">
+        <EntityType Name="tbRPT_PRSErrorMonitor">
           <Key>
             <PropertyRef Name="DateTime" />
           </Key>
@@ -38,7 +38,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ReportingModelStoreContainer" CdmEntityContainer="ReportingEntities">
-          <EntitySetMapping Name="tbPRSErrorMonitor"><EntityTypeMapping TypeName="ReportingModel.tbPRSErrorMonitor"><MappingFragment StoreEntitySet="tbPRSErrorMonitor">
+          <EntitySetMapping Name="tbRPT_PRSErrorMonitor"><EntityTypeMapping TypeName="ReportingModel.tbRPT_PRSErrorMonitor"><MappingFragment StoreEntitySet="tbRPT_PRSErrorMonitor">
             <ScalarProperty Name="DateTime" ColumnName="DateTime" />
             <ScalarProperty Name="PRSUnavailableErrors" ColumnName="PRSUnavailableErrors" />
             <ScalarProperty Name="PRSTimeoutErrors" ColumnName="PRSTimeoutErrors" />
@@ -65,7 +65,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="ReportingModel">
-        <EntityTypeShape EntityType="ReportingModel.tbPRSErrorMonitor" Width="1.5" PointX="0.75" PointY="0.75" Height="1.427958984375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportingModel.tbRPT_PRSErrorMonitor" Width="1.5" PointX="0.75" PointY="0.75" Height="1.427958984375" IsExpanded="true" />
       </Diagram>
     </Diagrams>
   </Designer>

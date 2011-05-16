@@ -8,9 +8,9 @@ namespace PRSErrorMonitorTests.TestHelpers.PopulateDatabaseTables
 {
     public static class AddRowTotbPrsErrorMonitor
     {
-        public static tbPRSErrorMonitor AddTableRow()
+        public static tbRPT_PRSErrorMonitor AddTableRow()
         {
-            tbPRSErrorMonitor row = new tbPRSErrorMonitor
+            tbRPT_PRSErrorMonitor row = new tbRPT_PRSErrorMonitor
             {
                 DateTime = DateTime.Now,
                 PRSUnavailableErrors = 0,
@@ -20,17 +20,17 @@ namespace PRSErrorMonitorTests.TestHelpers.PopulateDatabaseTables
             return row;
         }
 
-        public static tbPRSErrorMonitor AddTableRow(DateTime dateTime)
+        public static tbRPT_PRSErrorMonitor AddTableRow(DateTime dateTime)
         {
-            tbPRSErrorMonitor row = AddTableRow();
+            tbRPT_PRSErrorMonitor row = AddTableRow();
             row.DateTime = dateTime;
 
             return row;
         }
 
-        public static tbPRSErrorMonitor AddTableRow(DateTime dateTime, int numPrsUnavailableErrors, int numPrsTimeoutErrors)
+        public static tbRPT_PRSErrorMonitor AddTableRow(DateTime dateTime, int numPrsUnavailableErrors, int numPrsTimeoutErrors)
         {
-            tbPRSErrorMonitor row = new tbPRSErrorMonitor
+            tbRPT_PRSErrorMonitor row = new tbRPT_PRSErrorMonitor
             {
                 DateTime = dateTime,
                 PRSUnavailableErrors = numPrsUnavailableErrors,

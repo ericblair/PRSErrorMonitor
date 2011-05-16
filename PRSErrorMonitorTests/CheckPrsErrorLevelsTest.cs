@@ -416,7 +416,7 @@ namespace PRSErrorMonitorTests
             DateTime _checkRunTime = DateTime.Now;
             int _numOfUnavailableErrors = 20;
             int _numOfTimeoutErrors = 0;
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
             bool _unavailableErrorLimitExceeded = false;
             CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
@@ -437,11 +437,11 @@ namespace PRSErrorMonitorTests
             DateTime _checkRunTime = DateTime.Now;
             int _numOfUnavailableErrors = 5;
             int _numOfTimeoutErrors = 0;
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-9), _numOfUnavailableErrors, _numOfTimeoutErrors));
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-6), _numOfUnavailableErrors, _numOfTimeoutErrors));
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-3), _numOfUnavailableErrors, _numOfTimeoutErrors));
             bool _unavailableErrorLimitExceeded = false;
             CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
@@ -462,7 +462,7 @@ namespace PRSErrorMonitorTests
             DateTime _checkRunTime = DateTime.Now;
             int _numOfUnavailableErrors = 10;
             int _numOfTimeoutErrors = 0;
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
             bool _unavailableErrorLimitExceeded = false;
             CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
@@ -483,11 +483,11 @@ namespace PRSErrorMonitorTests
             DateTime _checkRunTime = DateTime.Now;
             int _numOfUnavailableErrors = 5;
             int _numOfTimeoutErrors = 0;
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-9), _numOfUnavailableErrors, _numOfTimeoutErrors));
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-6), _numOfUnavailableErrors, _numOfTimeoutErrors));
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-3), _numOfUnavailableErrors, _numOfTimeoutErrors));
             bool _unavailableErrorLimitExceeded = false;
             CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
@@ -508,7 +508,7 @@ namespace PRSErrorMonitorTests
             DateTime _checkRunTime = DateTime.Now;
             int _numOfUnavailableErrors = 0;
             int _numOfTimeoutErrors = 20;
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
             bool _timeoutLimitExceeded = false;
             CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
@@ -529,11 +529,11 @@ namespace PRSErrorMonitorTests
             DateTime _checkRunTime = DateTime.Now;
             int _numOfUnavailableErrors = 0;
             int _numOfTimeoutErrors = 10;
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-9), _numOfUnavailableErrors, _numOfTimeoutErrors));
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-6), _numOfUnavailableErrors, _numOfTimeoutErrors));
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-3), _numOfUnavailableErrors, _numOfTimeoutErrors));
             bool _timeoutLimitExceeded = false;
             CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
@@ -554,7 +554,7 @@ namespace PRSErrorMonitorTests
             DateTime _checkRunTime = DateTime.Now;
             int _numOfUnavailableErrors = 0;
             int _numOfTimeoutErrors = 10;
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
             bool _timeoutLimitExceeded = false;
             CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
@@ -575,11 +575,11 @@ namespace PRSErrorMonitorTests
             DateTime _checkRunTime = DateTime.Now;
             int _numOfUnavailableErrors = 0;
             int _numOfTimeoutErrors = 5;
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-9), _numOfUnavailableErrors, _numOfTimeoutErrors));
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-6), _numOfUnavailableErrors, _numOfTimeoutErrors));
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-3), _numOfUnavailableErrors, _numOfTimeoutErrors));
             bool _timeoutLimitExceeded = false;
             CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
@@ -602,7 +602,7 @@ namespace PRSErrorMonitorTests
             DateTime _checkRunTime = DateTime.Now;
             int _numOfUnavailableErrors = 20;
             int _numOfTimeoutErrors = 20;
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
             bool _totalLimitExceeded = false;
             CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
@@ -625,11 +625,11 @@ namespace PRSErrorMonitorTests
             DateTime _checkRunTime = DateTime.Now;
             int _numOfUnavailableErrors = 5;
             int _numOfTimeoutErrors = 5;
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-9), _numOfUnavailableErrors, _numOfTimeoutErrors));
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-6), _numOfUnavailableErrors, _numOfTimeoutErrors));
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-3), _numOfUnavailableErrors, _numOfTimeoutErrors));
             bool _totalLimitExceeded = false;
             CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
@@ -652,7 +652,7 @@ namespace PRSErrorMonitorTests
             DateTime _checkRunTime = DateTime.Now;
             int _numOfUnavailableErrors = 20;
             int _numOfTimeoutErrors = 20;
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime, _numOfUnavailableErrors, _numOfTimeoutErrors));
             bool _totalLimitExceeded = false;
             CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);
@@ -675,11 +675,11 @@ namespace PRSErrorMonitorTests
             DateTime _checkRunTime = DateTime.Now;
             int _numOfUnavailableErrors = 5;
             int _numOfTimeoutErrors = 5;
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-9), _numOfUnavailableErrors, _numOfTimeoutErrors));
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-6), _numOfUnavailableErrors, _numOfTimeoutErrors));
-            _reportingMockEntity.tbPRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
+            _reportingMockEntity.tbRPT_PRSErrorMonitor.AddObject(TestHelpers.PopulateDatabaseTables.AddRowTotbPrsErrorMonitor.AddTableRow(
                 _checkRunTime.AddMinutes(-3), _numOfUnavailableErrors, _numOfTimeoutErrors));
             bool _totalLimitExceeded = false;
             CheckPrsErrorLevels _checkPrsErrorLevels = new CheckPrsErrorLevels(_mockRepository, _configFileHelperStub, _log);

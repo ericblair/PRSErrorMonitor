@@ -35,9 +35,9 @@ namespace PRSErrorMonitorTests
 
             _repository.UpdatePRSErrorMonitorTable(_currentDateTime, _numberOfPRSUnavailableErrors, _numberOfPRSTimeoutErrors);
 
-            Assert.AreEqual(_reportingMockContext.tbPRSErrorMonitor.ElementAt(0).DateTime, _currentDateTime);
-            Assert.AreEqual(_reportingMockContext.tbPRSErrorMonitor.ElementAt(0).PRSUnavailableErrors, _numberOfPRSUnavailableErrors);
-            Assert.AreEqual(_reportingMockContext.tbPRSErrorMonitor.ElementAt(0).PRSTimeoutErrors, _numberOfPRSTimeoutErrors);
+            Assert.AreEqual(_reportingMockContext.tbRPT_PRSErrorMonitor.ElementAt(0).DateTime, _currentDateTime);
+            Assert.AreEqual(_reportingMockContext.tbRPT_PRSErrorMonitor.ElementAt(0).PRSUnavailableErrors, _numberOfPRSUnavailableErrors);
+            Assert.AreEqual(_reportingMockContext.tbRPT_PRSErrorMonitor.ElementAt(0).PRSTimeoutErrors, _numberOfPRSTimeoutErrors);
         }
     }
 }

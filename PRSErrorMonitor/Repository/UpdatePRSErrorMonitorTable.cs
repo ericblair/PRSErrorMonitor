@@ -9,12 +9,12 @@ namespace PRSErrorMonitor
     {
         public void UpdatePRSErrorMonitorTable(DateTime dateTime, int prsUnavailableErrors, int prsTimeoutErrors)
         {
-            tbPRSErrorMonitor _prsErrorMonitorRow = new tbPRSErrorMonitor();
+            tbRPT_PRSErrorMonitor _prsErrorMonitorRow = new tbRPT_PRSErrorMonitor();
             _prsErrorMonitorRow.DateTime = dateTime;
             _prsErrorMonitorRow.PRSUnavailableErrors = prsUnavailableErrors;
             _prsErrorMonitorRow.PRSTimeoutErrors = prsTimeoutErrors;
 
-            _reportingEntityContext.tbPRSErrorMonitor.AddObject(_prsErrorMonitorRow);
+            _reportingEntityContext.tbRPT_PRSErrorMonitor.AddObject(_prsErrorMonitorRow);
             _reportingEntityContext.SaveChanges();
         }
     }

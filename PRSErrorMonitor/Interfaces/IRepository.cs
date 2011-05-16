@@ -5,9 +5,9 @@ namespace PRSErrorMonitor
 {
     public interface IRepository
     {
-        global::PRSErrorMonitor.tbPRSErrorMonitor RetrieveLatestRowFromPrsErrorMonitorTable();
+        global::PRSErrorMonitor.tbRPT_PRSErrorMonitor RetrieveLatestRowFromPrsErrorMonitorTable();
         int ReturnErrorCountInPreviousMinute(DateTime timeToCheck, int? errorCode);
         void UpdatePRSErrorMonitorTable(DateTime dateTime, int prsUnavailableErrors, int prsTimeoutErrors);
-        IList<tbPRSErrorMonitor> RetrieveRowsFromPrsErrorMonitorTableForTimeSpecified(int checkFrequencyMinutes);
+        IList<tbRPT_PRSErrorMonitor> RetrieveRowsFromPrsErrorMonitorTableForTimeSpecified(int checkFrequencyMinutes);
     }
 }

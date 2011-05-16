@@ -35,7 +35,7 @@ namespace PRSErrorMonitor
             // If check is to be run every minute, just grab the latest row from tbPrsErrorMonitor
             if (_configFileHelper.PrsErrorCheckFrequency == 1)
             {
-                tbPRSErrorMonitor _resultsFromLatestPrsCheck = _repository.RetrieveLatestRowFromPrsErrorMonitorTable();
+                tbRPT_PRSErrorMonitor _resultsFromLatestPrsCheck = _repository.RetrieveLatestRowFromPrsErrorMonitorTable();
                 _numberOfPrsUnavailableErrors = _resultsFromLatestPrsCheck.PRSUnavailableErrors;
                 _numberOfPrsTimeoutErrors = _resultsFromLatestPrsCheck.PRSTimeoutErrors;
                 _totalNumberOfPrsErrors = _numberOfPrsUnavailableErrors + _numberOfPrsTimeoutErrors;
@@ -44,7 +44,7 @@ namespace PRSErrorMonitor
             {
                 // Been thinking about changing this to retrieive all records more recent than the lastTimeCheckWasRan 
                 // value in the config file as its more accurate and probably the same speed.....?
-                IList<tbPRSErrorMonitor> _prsErrorDetailsSinceLastCheck =
+                IList<tbRPT_PRSErrorMonitor> _prsErrorDetailsSinceLastCheck =
                     _repository.RetrieveRowsFromPrsErrorMonitorTableForTimeSpecified(_configFileHelper.PrsErrorCheckFrequency);
 
                 foreach (var tableRow in _prsErrorDetailsSinceLastCheck)

@@ -35,8 +35,8 @@ namespace PRSErrorMonitorTests
             RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository, _log);
             _recordPrsErrorActivity.RecordPRSErrorCounts();
 
-            Assert.AreEqual(_reportingMockEntity.tbPRSErrorMonitor.ElementAt(0).PRSUnavailableErrors, 0);
-            Assert.AreEqual(_reportingMockEntity.tbPRSErrorMonitor.ElementAt(0).PRSTimeoutErrors, 0);
+            Assert.AreEqual(_reportingMockEntity.tbRPT_PRSErrorMonitor.ElementAt(0).PRSUnavailableErrors, 0);
+            Assert.AreEqual(_reportingMockEntity.tbRPT_PRSErrorMonitor.ElementAt(0).PRSTimeoutErrors, 0);
         }
 
         [TestMethod]
@@ -51,8 +51,8 @@ namespace PRSErrorMonitorTests
             RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository, _log);
             _recordPrsErrorActivity.RecordPRSErrorCounts();
 
-            Assert.AreEqual(_reportingMockEntity.tbPRSErrorMonitor.ElementAt(0).PRSUnavailableErrors, 0);
-            Assert.AreEqual(_reportingMockEntity.tbPRSErrorMonitor.ElementAt(0).PRSTimeoutErrors, 0);
+            Assert.AreEqual(_reportingMockEntity.tbRPT_PRSErrorMonitor.ElementAt(0).PRSUnavailableErrors, 0);
+            Assert.AreEqual(_reportingMockEntity.tbRPT_PRSErrorMonitor.ElementAt(0).PRSTimeoutErrors, 0);
         }
 
         [TestMethod]
@@ -64,7 +64,7 @@ namespace PRSErrorMonitorTests
             RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository, _log);
             _recordPrsErrorActivity.RecordPRSErrorCounts();
 
-            Assert.AreEqual(_reportingMockEntity.tbPRSErrorMonitor.ElementAt(0).PRSUnavailableErrors, 1);
+            Assert.AreEqual(_reportingMockEntity.tbRPT_PRSErrorMonitor.ElementAt(0).PRSUnavailableErrors, 1);
         }
 
         [TestMethod]
@@ -76,7 +76,7 @@ namespace PRSErrorMonitorTests
             RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository, _log);
             _recordPrsErrorActivity.RecordPRSErrorCounts();
 
-            Assert.AreEqual(_reportingMockEntity.tbPRSErrorMonitor.ElementAt(0).PRSTimeoutErrors, 1);
+            Assert.AreEqual(_reportingMockEntity.tbRPT_PRSErrorMonitor.ElementAt(0).PRSTimeoutErrors, 1);
         }
 
         [TestMethod]
@@ -95,8 +95,8 @@ namespace PRSErrorMonitorTests
             RecordPRSErrorActivity _recordPrsErrorActivity = new RecordPRSErrorActivity(_mockRepository, _log);
             _recordPrsErrorActivity.RecordPRSErrorCounts();
 
-            Assert.AreEqual(_reportingMockEntity.tbPRSErrorMonitor.ElementAt(0).PRSUnavailableErrors, 2);
-            Assert.AreEqual(_reportingMockEntity.tbPRSErrorMonitor.ElementAt(0).PRSTimeoutErrors, 3);
+            Assert.AreEqual(_reportingMockEntity.tbRPT_PRSErrorMonitor.ElementAt(0).PRSUnavailableErrors, 2);
+            Assert.AreEqual(_reportingMockEntity.tbRPT_PRSErrorMonitor.ElementAt(0).PRSTimeoutErrors, 3);
         }
     }
 }

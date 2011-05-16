@@ -58,9 +58,6 @@
     <Compile Include="Interfaces\IConfigFileHelper.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IReportPrsErrors.cs" />
-    <Compile Include="IReportingEntities.cs">
-      <DependentUpon>ReportingModel.Context.tt</DependentUpon>
-    </Compile>
     <Compile Include="Classes\Logger.cs" />
     <Compile Include="Classes\ReportPrsErrors.cs" />
     <Compile Include="Classes\RecordPRSErrorActivity.cs" />
@@ -91,8 +88,12 @@
     <Compile Include="IePharmacyEntities.cs">
       <DependentUpon>ePharmacyModel.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="IReportingEntities.cs">
+      <DependentUpon>ReportingModel.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="ReportingEntities.cs">
       <DependentUpon>ReportingModel.Context.tt</DependentUpon>
     </Compile>
@@ -117,7 +118,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportingModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\RetrieveLatestRowFromPrsErrorMonitorTable.cs" />
     <Compile Include="Repository\RetrieveRowsFromPrsErrorMonitorTableForTimeSpecified.cs" />
@@ -126,7 +126,7 @@
     <Compile Include="tbAuditExchangeInbound.cs">
       <DependentUpon>ePharmacyModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="tbPRSErrorMonitor.cs">
+    <Compile Include="tbRPT_PRSErrorMonitor.cs">
       <DependentUpon>ReportingModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

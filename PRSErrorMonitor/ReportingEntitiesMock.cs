@@ -22,12 +22,12 @@ namespace PRSErrorMonitor
     /// </summary>
     public partial class ReportingEntitiesMock : IReportingEntities
     {
-        public IObjectSet<tbPRSErrorMonitor> tbPRSErrorMonitor
+        public IObjectSet<tbRPT_PRSErrorMonitor> tbRPT_PRSErrorMonitor
         {
-            get { return _tbPRSErrorMonitor  ?? (_tbPRSErrorMonitor = new MockObjectSet<tbPRSErrorMonitor>()); }
+            get { return _tbRPT_PRSErrorMonitor  ?? (_tbRPT_PRSErrorMonitor = new MockObjectSet<tbRPT_PRSErrorMonitor>()); }
         }
-        private IObjectSet<tbPRSErrorMonitor> _tbPRSErrorMonitor;
+        private IObjectSet<tbRPT_PRSErrorMonitor> _tbRPT_PRSErrorMonitor;
 
-        public int SaveChanges() { return 0; }
+        public int SaveChanges() { return 0; } 
     }
 }

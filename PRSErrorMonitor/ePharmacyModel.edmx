@@ -199,7 +199,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="ePharmacyModel" ZoomLevel="67">
+      <Diagram Name="ePharmacyModel" ZoomLevel="55">
         <EntityTypeShape EntityType="ePharmacyModel.tbAuditExchangeInbound" Width="1.5" PointX="0.75" PointY="0.75" Height="8.8235888671875" IsExpanded="true" />
       </Diagram>
     </Diagrams>
